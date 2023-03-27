@@ -39,7 +39,7 @@ body{
     .grad img {
         width: 50%;
         height: auto;
-        aspect-ratio: 2/1; /* Set the aspect ratio to 2:1 (or whatever matches your image's dimensions) */
+        aspect-ratio: 2/1; 
     }
     
     .slogan{

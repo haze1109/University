@@ -4,12 +4,79 @@
 <head>
     @include("layouts/head")
     <title>Document</title>
+    <style>
+        /* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+/* Navigation bar */
+.navbar {
+    background-color: #333;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+/* Logo */
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+/* Container */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Slogan */
+.slogan h1, .welcome {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 50px;
+}
+
+.slogan p {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Values */
+.values {
+    margin-top: 50px;
+    padding: 20px;
+}
+
+.values h3 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-top: 30px;
+}
+
+.values p {
+    font-size: 18px;
+    line-height: 1.5;
+    margin-top: 20px;
+}
+
+/* Grad image */
+.grad img {
+    max-width: 100%;
+    height: auto;
+}
+
+    </style>
 </head>
 
 <body>
 @include("layouts/navbar-user")
-<h1>Home Page</h1>
-<a href="/about">Go to About page</a>
+<h1 class="welcome text-center">Welcome</h1>
 <div class="container">
     <div class="grad col-lg-12 img-fluid">
         <img src="../img/grad.jpg" alt="graduates">
