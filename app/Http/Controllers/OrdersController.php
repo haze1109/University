@@ -7,6 +7,9 @@ use App\Models\Order;
 use App\Models\OrdersProduct;
 use DB;
 use Session;
+use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Http\Response;
+
 
 class OrdersController extends Controller
 {
@@ -30,12 +33,25 @@ class OrdersController extends Controller
         return redirect('/orders')->with('success', 'Order successfully cancelled!');
     }
 
+    // public function showMyOrders(){
+    //     $orders = DB::select("SELECT o.order_id, time_placed, status, op.product_id, quantity, name, price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE o.status NOT IN ('completed', 'cancelled') AND o.student_id = " . Session::get('student_id'));
+    //     $total_price = DB::select("SELECT SUM(price * quantity) AS total_price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE o.status NOT IN ('completed', 'cancelled') AND o.student_id = " . Session::get('student_id'));
+    //     $history = DB::select("SELECT o.order_id, status, time_placed, SUM(quantity * price) AS total_price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE status IN ('completed', 'cancelled') AND student_id = ". Session::get('student_id') ." GROUP BY o.order_id ORDER BY time_placed DESC");
+    //     return view('my_orders', compact('orders', 'total_price', 'history'));
+    // } else {
+
+    // }
     public function showMyOrders(){
+        if (Session::has('student_id')) {
         $orders = DB::select("SELECT o.order_id, time_placed, status, op.product_id, quantity, name, price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE o.status NOT IN ('completed', 'cancelled') AND o.student_id = " . Session::get('student_id'));
         $total_price = DB::select("SELECT SUM(price * quantity) AS total_price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE o.status NOT IN ('completed', 'cancelled') AND o.student_id = " . Session::get('student_id'));
         $history = DB::select("SELECT o.order_id, status, time_placed, SUM(quantity * price) AS total_price FROM orders AS o INNER JOIN orders_products AS op ON o.order_id = op.order_id INNER JOIN products AS p ON op.product_id = p.product_id WHERE status IN ('completed', 'cancelled') AND student_id = ". Session::get('student_id') ." GROUP BY o.order_id ORDER BY time_placed DESC");
         return view('my_orders', compact('orders', 'total_price', 'history'));
-    }
+        } else {
+            $response = new Response(view('errors.401'));
+            throw new HttpResponseException($response);
+        }
+        }
     public function updateStatus(Request $request, $id){
         $order = Order::where("order_id", "=", $id)->update([
             'status' => $request->input("status")

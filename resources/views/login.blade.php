@@ -54,7 +54,7 @@ button[type="submit"]:hover {
 
 <body>
 @include("layouts/navbar-user")
-<h1>Login</h1>
+<h1 class="text-center pt-2 mb-2">Login</h1>
 <form action="/login" method="POST">
     @csrf
     <label>Email address:</label>

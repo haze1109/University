@@ -18,13 +18,14 @@ form {
 
 h1 {
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 label {
   display: block;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   font-weight: bold;
+  margin-top:0px;
 }
 
 input[type="text"],
@@ -32,8 +33,8 @@ input[type="email"],
 input[type="password"] {
   display: block;
   width: 100%;
-  padding: 10px;
-  margin-bottom: 20px;
+  padding: 5px;
+  margin-bottom: 5px;
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 16px;
@@ -60,7 +61,7 @@ button[type="submit"]:hover {
 
 <body>
 @include("layouts/navbar-user")
-<h1>Register</h1>
+<h1 class="text-center pt-2 mb-2">Register</h1>
 <form action="/register" method="POST">
     @csrf
     <label>First name:</label>
